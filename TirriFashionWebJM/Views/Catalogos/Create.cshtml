@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -19,8 +19,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" class="form-control" />
+                <input type="file" id="fileImagen" asp-for="Imagen" class="form-control" onchange="mostrarVistaPrevia()" accept="image/*" />
                 <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+              <div>          
+                <img id="imagenPrevia" src="~/images/default.jpg" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;">
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
@@ -52,5 +55,21 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function mostrarVistaPrevia() {
+            var input = document.getElementById('fileImagen');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('imagenPrevia').src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]); // Convierte el archivo a una URL base64
+            }
+        }
+    </script>
 }

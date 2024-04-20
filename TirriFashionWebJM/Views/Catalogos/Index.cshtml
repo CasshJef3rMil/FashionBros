@@ -24,11 +24,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.AñoFabricacion)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
             </th>
             <th></th>
         </tr>
@@ -39,21 +40,33 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
+                <td>
+                    @{
+                        string urlBase64 = "";
+                        if (item.Imagen != null && item.Imagen.Length > 0)
+                        {
+                            string base64String = Convert.ToBase64String(item.Imagen);
+                            urlBase64 = "data:image/jpeg;base64," + base64String;
+                        }
+                    }
+                    <img src="@urlBase64" width="50px" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AñoFabricacion)
             </td>
-            <td>
+          @*   <td>
                 @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Id)
-            </td>
+            </td> *@
+           
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Nombre)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
