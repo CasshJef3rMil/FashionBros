@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TirriFashionWebJM.Models
 {
@@ -13,6 +14,7 @@ namespace TirriFashionWebJM.Models
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
         public byte[]? Imagen { get; set; }
+        
         public string? Descripcion { get; set; }
         public DateTime? AñoFabricacion { get; set; }
         public int IdUsuario { get; set; }

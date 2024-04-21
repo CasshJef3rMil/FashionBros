@@ -48,8 +48,8 @@ namespace TirriFashionWebJM.Controllers
         // GET: Catalogos/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Id");
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "Id", "Id");
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Nombre");
+            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "Id", "Nombre");
             return View();
         }
 
@@ -68,6 +68,9 @@ namespace TirriFashionWebJM.Controllers
                     catalogo.Imagen = memoryStream.ToArray();
                 }
             }
+
+
+
             _context.Add(catalogo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -92,8 +95,8 @@ namespace TirriFashionWebJM.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Id", catalogo.IdCategoria);
-            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "Id", "Id", catalogo.IdUsuario);
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Nombre", catalogo.IdCategoria);
+            ViewData["IdUsuario"] = new SelectList(_context.Usuarios, "Id", "Nombre", catalogo.IdUsuario);
             return View(catalogo);
         }
 
